@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage{preamble}
+\usepackage{chemist}
+\usepackage{lastpage}
+\usepackage{acronym}
+
+\titlespacing*{\section}{-5pt}{1.1\baselineskip}{\baselineskip}
+% no indent and no space between the indents 
+%\setlength{\parskip}{0pt}
+%\setlength{\parindent}{0pt}
+% creates the front page without page number
+
+\begin{document}
+\thispagestyle{empty}
+\pagenumbering{Roman}
+\input{Sections/Frontpage}
+% table of content
+\newpage
+\input{Sections/Introduction}
+\newpage
+\clearpage\thispagestyle{empty}\addtocounter{page}{-1} 
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+\tableofcontents\thispagestyle{empty}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Start af tekstdokument
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+%\begin{flushleft}, don't know what this is
+% inserting the rest of the sections 
+%\input{Sections/Questions}
+%\newpage
+\input{Sections/Description}
+\newpage
+\input{Sections/Numscheme}
+\newpage
+\input{Sections/Solution}
+\newpage
+\input{Sections/Discussion}
+\newpage
+\input{Sections/Conclusion}
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+%Indsætter litteraturliste
+%\begin{multicols}{2}
+\begin{small}
+%\bibliographystyle{apalike}
+\bibliography{references}
+%\%printbibliography
+%\appto{\bibsetup}{\sloppy}
+\end{small}
+%\end{multicols}
+\newpage
+\input{Sections/Appendix.tex}
+
+
+
+%\nocite{*}
+%Indsætter litteraturliste
+\newpage
+\end{document}
+%\begin{multicols}{2}
+%\begin{small}
+%\printbibliography
+%\appto{\bibsetup}{\sloppy}
+%\end{small}
+%\newpage
+%\input{Sections/Appendix}
+%skal man ha med list of figures?
+
+
+%\end{document}

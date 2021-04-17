@@ -1,0 +1,103 @@
+\ProvidesPackage{preamble}
+
+\usepackage[margin=1.6in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[USenglish]{babel}
+\usepackage{pdfpages} %Gør at man kan sætte PDF sider ind i doc
+\usepackage{graphics} %Gør at man kan sætte grafer ind
+\usepackage{xcolor,colortbl}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\graphicspath{}
+%\usepackage{graphicx}
+\usepackage{color} %Gør at der kommer farver i doc
+%\usepackage{cite} %udvidede litteraturreferencer
+\usepackage{url} %Giver mulighed for at henvise til en hjemmeside
+\usepackage{epstopdf} %Laver eps filer til pdf
+\usepackage{placeins} %Floats ikke flyder forbi kommandoen %\FloatBarrier
+\usepackage{booktabs} %Gør at tabeller ser flotte ud og opsætning
+\usepackage{enumitem} %Gør det muligt at ændre i layout 
+\setcounter{tocdepth}{1} %Laveste niveau i indholdsfortegnelsen
+\usepackage{textgreek} % Gør det muligt at indsætte græske bogstaver
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx,booktabs}
+\usepackage{float}
+\usepackage{framed}
+
+\usepackage{caption}
+\usepackage{mathtools} %math mode
+%\captionsetup[table]{skip=3pt}
+%\captionsetup[figure]{skip=3pt}
+\usepackage{subcaption}
+\usepackage{amssymb,amsmath}
+%\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{titlesec}
+\titlespacing*{\subsubsection}{0pt}{\parskip}{-5pt}
+\usepackage[toc,page]{appendix}
+%\addto\captionsdanish{
+\usepackage{textcomp} % degree sign
+\usepackage[version=3]{mhchem} %Kemiske formler
+\renewcommand\appendixtocname{Bilag}
+\setlist[itemize]{,topsep=-3pt}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\renewcommand{\baselinestretch}{1.3} %Laver linjeafstand
+\usepackage{multicol} %Giver mulighed for at lave section i valgfrit antal kolonner.
+\usepackage[font={footnotesize}]{caption}
+\usepackage{gensymb} %så man kan indsætte gradtegn
+%\usepackage[table,xcdraw]{xcolor}
+\usepackage{tabularx}
+\usepackage{longtable}
+
+%Kilder
+%\usepackage{biblatex} %pakke til kilder
+%\addbibresource{references.bib} %pakke til kilder
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{doi}
+ 
+%Afsnit
+\parindent=0pt %Gør at der ikke er indryk ved nye afsnit
+\parskip=6pt plus 2pt minus 2 pt %Def afstand mellem afsnit
+%\parskip=8pt plus 2pt minus 4 pt
+
+%Sidehoved og sidefod
+\usepackage{fancyhdr} %Håndtering af sidehoved og -fod
+\pagestyle{fancy} %giver fuld kontrol over sidehoved og -fod
+\lhead{Final Report} %Sætter tekst i sidehoved i venstre side
+\rhead{XX-5-2021}
+\chead{\rightmark}
+\renewcommand{\headrulewidth}{0.01pt}
+\fancyheadoffset{0pt}
+\usepackage{multirow} %fra table generator
+\usepackage{hyperref}
+%\usepackage{showframe}
+%\usepackage[backend=biber]{biblatex}
+%\usepackage{microtype} 
+%\appto{\bibsetup}{\sloppy}
+%\usepackage{glossaries}
+%\makeglossaries
+
+% Sections
+\setcounter{secnumdepth}{4} % Antallet af subsections
+\titlespacing*{\subsubsection}{0pt}{\parskip}{-5pt}
+\titlespacing*{\subsection}{0pt}{\parskip}{-2pt}
+% Bruge paragraph til 4.led af sections 
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{\parskip}{-5pt}%{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%\titlespacing\section{-5pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+%\titlespacing\subsection{-5pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+%\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+\textwidth=450pt
+\hoffset=-45pt
+\topmargin=-25pt
+\textheight=620pt
+
+%Checkboxes
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}

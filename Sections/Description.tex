@@ -1,0 +1,48 @@
+\section{Description}
+\subsection{Model}
+In our trait-based model, the cell size of phytoplankton is the mean trait described with a log-normal size distribution: $L=log(S)$. S is the Equivalent Spherical Diameter (ESD) given in \si{\mu m}. 
+\subsection{System of equations}
+The changes in the total biomass of the phytoplankton (P) community over time is given as a function of cell size:
+\begin{equation}
+    \label{eq:phytoplanktonbiomass}
+    \frac{dP}{dt} = r(\bar{L})P
+\end{equation}
+The net growth rate of P, $r(\bar{L})$, can be written as
+\begin{equation}
+    \label{eq:netgrowthrateP}
+    r(\bar{L})=\mu_P(N,I)+\delta_I-m_P-\mu_ZG(\bar{L},P)Z-v(\bar{L},M)-K,
+\end{equation}
+where $\delta_I$ is the rate of dispersal of phytoplankton from patches nearby into the community of interest (i.e. immigration rate), $K$ is the mixing across the thermocline, $G(L,P)$ is the zooplankton grazing, $v(L,M)$ is the phytoplankton sinking and $m_P$ represents any other losses of $P$.
+\newline
+\newline
+\textbf{Phytoplankton growth rate and nutrient uptake}
+\newline
+The growth rate of phytoplankton $\mu_P(N,I)$ is limited by two factors, which are the light and the available nutrients. The least abundant is controlling the growth, which is in accordance with Liebig's law of the minimum:
+\begin{equation}
+    \label{eq:growthrate}
+    \mu_P(N,I) = \mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(L,N)\bigg),
+\end{equation}
+where $\mu_{Pmax}$ is maximum specific growth rate of P, $I$ is the light intensity, $H_{I}$ is the half saturation constants of light limited growth and $U$ is the phytoplankton nutrient uptake as a function of nutrients $N$ and the cell size of phytoplankton $L$. The half-saturation for nutrients $H_N$ is allome
+\begin{equation}
+    \label{eq:nutrientuptake}
+    U(L,N) = \frac{N}{H_N+N}=\frac{N}{(\beta_U\cdot e^{L\alpha_U})+N},
+\end{equation}
+where $\beta_U$ is the intercept of the allometric function $H_N$
+\newline
+\newline
+\textbf{Light intensity}
+\newline
+The light intensity is given in accordance with Lambert–Beer’s law, which means that it is decreasing exponentially with depth as a result of light being absorbed by biomass, water and other substances:
+\begin{equation}
+    \label{eq:light}
+    I(z,t) = I_{in}exp \bigg( - \int_{0}^{z} k_{p}P(\sigma,t) \,d \sigma - K_{bg}z \bigg),
+\end{equation}
+where $I_{in}$ is the incident light intensity, $k_p$ is the phytoplankton light absorption coefficient, $K_{bg}$ is the background turbidity of the water and $\sigma$ is an integration variable. 
+\newline
+\newline
+\textbf{Phytoplankton sinking}
+\newline
+Based on Stokes' law, the phytoplankton sinking $v(L,M)$ is given as a function of cell size and the forcing function $M(t)$.
+
+
+\subsection{Parameters}
