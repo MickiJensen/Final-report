@@ -1,1 +1,25 @@
 \section{Introduction}
+\begin{equation}
+    \label{eq:Ndynamicsrand}
+    \mathrm{\frac{dN}{dt} = -\mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(\bar{L},N)\bigg)P+\delta_D D+K(N_0-N)}
+\end{equation}
+% phytoplankton
+\begin{equation}
+    \label{eq:Pdynamicsrand}
+    \mathrm{\frac{dP}{dt} = \left[ \mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(\bar{L},N)\bigg)+\delta_I-m_P-\mu_ZG(\bar{L},P)Z-v(\bar{L},M)-K \right] P}
+\end{equation}
+% zooplankton
+\begin{equation}
+    \label{eq:Zdynamicsrand}
+    \mathrm{\frac{dZ}{dt} = \delta_Z\mu_Z G(\bar{L},P)PZ-m_Z Z^2 - \frac{h(t)}{M(t)}Z}
+\end{equation}
+%detritus
+\begin{equation}
+    \label{eq:Ddynamicsrand}
+    \mathrm{\frac{dD}{dt} = (1-\delta_Z)\mu_Z G(\bar{L},P)PZ+m_P+m_Z Z^2-\delta_D D-KD}
+\end{equation}
+
+\begin{equation}
+    \label{eq:nutrientuptakerand}
+    \mathrm{U(L,N) = \frac{N}{(\beta_U\cdot e^{L\alpha_U})+N}},
+\end{equation}
