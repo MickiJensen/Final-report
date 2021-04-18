@@ -1,33 +1,69 @@
 \section{Description}
+The model and its four state variables are illustrated in Figure \cref{fig:ModelIllust}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.90\linewidth]{Figures/ModelIllustration_HighRes1.png}
+\caption{TEXT}
+\label{fig:ModelIllust}
+\end{figure}
+% briefly explain the processes
+% mention which parameters that are affected by size
+\newpage
+%
 \subsection{Model}
-In our trait-based model, the cell size of phytoplankton is the mean trait described with a log-normal size distribution: $L=log(S)$. S is the Equivalent Spherical Diameter (ESD) given in \si{\mu m}. 
+In our trait-based model, the cell size of phytoplankton is the mean trait described with a log-normal size distribution: $\mathrm{L=log(S)}$. S is the Equivalent Spherical Diameter (ESD) given in \si{\mu m}. The change in mean cell size over time is described by the following equation
+\begin{equation}
+    \label{eq:changecellsize}
+    \mathrm{\frac{d\bar{L}}{dt} = V\frac{\partial r(\bar{L})}{\partial L}},
+\end{equation}
+where r is the net growth rate of phytoplankton, which is given in Equation \eqref{eq:netgrowthrateP}. V is the variance of the log size diversity of the phytoplankton community and is given by
+\begin{equation}
+    \label{eq:variance}
+    \mathrm{\frac{dV}{dt} = -V^{2}\frac{\partial^{2} r(\bar{L})}{\partial^{2} L}+\delta_I(V_0-V)},
+\end{equation}
+where $\mathrm{V_0}$ is the size variance as a result of the immigration rate $\mathrm{\delta_I}$ into the community.
+\newline
+\newline
+M(t) is a forcing function describing how the mixed layer depth (MLD) changes with seasons. The actual change $\mathrm{h(t)}$ in the MLD per day is defined as,
+\begin{equation}
+    \label{eq:h(t)}
+    \mathrm{h(t) = \frac{dM(t)}{dt}}
+\end{equation}
+The diffusive mixing K is then given by the following equation:
+\begin{equation}
+    \label{eq:K}
+    \mathrm{K = \frac{\kappa+h^{+}}{M(t)}},
+\end{equation}
+where $\kappa$ is the cross-thermocline mixing. Entrainment and detrainment are taken into account in the term $\mathrm{h^{+} = max[h(t),0]}$.
+
 \subsection{System of equations}
 The changes in the total biomass of the phytoplankton (P) community over time is given as a function of cell size:
 \begin{equation}
     \label{eq:phytoplanktonbiomass}
-    \frac{dP}{dt} = r(\bar{L})P
+    \mathrm{\frac{dP}{dt} = r(\bar{L})P}
 \end{equation}
-The net growth rate of P, $r(\bar{L})$, can be written as
+The net growth rate of P, $\mathrm{r(\bar{L}})$, can be written as
 \begin{equation}
     \label{eq:netgrowthrateP}
-    r(\bar{L})=\mu_P(N,I)+\delta_I-m_P-\mu_ZG(\bar{L},P)Z-v(\bar{L},M)-K,
+    \mathrm{r(\bar{L})=\mu_P(N,I)+\delta_I-m_P-\mu_ZG(\bar{L},P)Z-v(\bar{L},M)-K},
 \end{equation}
-where $\delta_I$ is the rate of dispersal of phytoplankton from patches nearby into the community of interest (i.e. immigration rate), $K$ is the mixing across the thermocline, $G(L,P)$ is the zooplankton grazing, $v(L,M)$ is the phytoplankton sinking and $m_P$ represents any other losses of $P$.
+where $\mathrm{\delta_I}$ is the rate of dispersal of phytoplankton from patches nearby into the community of interest, K is the mixing, $\mathrm{G(L,P)}$ is the zooplankton grazing, $v(L,M)$ is the phytoplankton sinking and $\mathrm{m_P}$ represents any other losses of P.
 \newline
 \newline
 \textbf{Phytoplankton growth rate and nutrient uptake}
 \newline
-The growth rate of phytoplankton $\mu_P(N,I)$ is limited by two factors, which are the light and the available nutrients. The least abundant is controlling the growth, which is in accordance with Liebig's law of the minimum:
+The growth rate of phytoplankton $\mathrm{\mu_P(N,I)}$ is limited by two factors, which are the light and the available nutrients. The least abundant is controlling the growth, which is in accordance with Liebig's law of the minimum:
 \begin{equation}
     \label{eq:growthrate}
-    \mu_P(N,I) = \mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(L,N)\bigg),
+    \mathrm{\mu_P(N,I) = \mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(\bar{L},N)\bigg)},
 \end{equation}
-where $\mu_{Pmax}$ is maximum specific growth rate of P, $I$ is the light intensity, $H_{I}$ is the half saturation constants of light limited growth and $U$ is the phytoplankton nutrient uptake as a function of nutrients $N$ and the cell size of phytoplankton $L$. The half-saturation for nutrients $H_N$ is allome
+where $\mathrm{\mu_{Pmax}}$ is maximum specific growth rate of P, I is the light intensity and $\mathrm{H_{I}}$ is the half saturation constants of light limited growth. U is the phytoplankton nutrient uptake as a function of nutrients N and the cell size of phytoplankton L, given by
 \begin{equation}
     \label{eq:nutrientuptake}
-    U(L,N) = \frac{N}{H_N+N}=\frac{N}{(\beta_U\cdot e^{L\alpha_U})+N},
+    \mathrm{U(L,N) = \frac{N}{H_N+N}=\frac{N}{(\beta_U\cdot e^{L\alpha_U})+N}},
 \end{equation}
-where $\beta_U$ is the intercept of the allometric function $H_N$
+where $\mathrm{\beta_U}$ is the intercept of the allometric function $H_N$ (the half-saturation for nutrients) and $\mathrm{\alpha_U}$ is the slope of $\mathrm{H_N}$.
+% we need to discuss the consequence of this somewhere
 \newline
 \newline
 \textbf{Light intensity}
@@ -35,14 +71,84 @@ where $\beta_U$ is the intercept of the allometric function $H_N$
 The light intensity is given in accordance with Lambert–Beer’s law, which means that it is decreasing exponentially with depth as a result of light being absorbed by biomass, water and other substances:
 \begin{equation}
     \label{eq:light}
-    I(z,t) = I_{in}exp \bigg( - \int_{0}^{z} k_{p}P(\sigma,t) \,d \sigma - K_{bg}z \bigg),
+    \mathrm{I(z,t) = I_{in}exp \bigg( - \int_{0}^{z} k_{p}P(\sigma,t) \,d \sigma - K_{bg}z \bigg)},
 \end{equation}
-where $I_{in}$ is the incident light intensity, $k_p$ is the phytoplankton light absorption coefficient, $K_{bg}$ is the background turbidity of the water and $\sigma$ is an integration variable. 
+where $\mathrm{I_{in}}$ is the incident light intensity, $\mathrm{k_p}$ is the phytoplankton light absorption coefficient, $\mathrm{K_{bg}}$ is the background turbidity of the water and $\mathrm{\sigma}$ is an integration variable. 
 \newline
 \newline
 \textbf{Phytoplankton sinking}
 \newline
-Based on Stokes' law, the phytoplankton sinking $v(L,M)$ is given as a function of cell size and the forcing function $M(t)$.
-
-
+Based on Stokes' law, the phytoplankton sinking $\mathrm{v(L,M)}$ is given as a function of cell size and the forcing function $\mathrm{M(t)}$.
+\begin{equation}
+    \label{eq:sinking}
+    \mathrm{v(L,M) = \frac{\beta_v\cdot e^{L\cdot \alpha_v}}{M(t)}}
+\end{equation}
+The constants $\mathrm{\alpha_v}$ and $\mathrm{\beta_v}$ are the slope and the intercept of the allometric function v, respectively. This indicates that higher cells have higher sinking rates, meaning that they will be transported away from the mixed layer at a faster rate than smaller cells. 
+\newline
+\newline
+\textbf{Zooplankton grazing}
+\newline
+The zooplankton grazing G(L,P) is also scaling with the cell size of phytoplankton, where the grazing pressure decreases with increasing cell size. It can be described by the Michaelis-Menten type function
+\begin{equation}
+    \label{eq:grazing}
+    \mathrm{G(L,P) = \frac{e^{L\cdot\alpha_G}}{P\cdot e^{L\cdot \alpha_G}+H_P}},
+\end{equation}
+where $\mathrm{H_P}$ is the half saturation constant for grazing and $\mathrm{\alpha_G}$ is the slope for the allometric grazer preference.
+\newline
+\newline
+\textbf{Model dynamics}
+\newline
+The final differential equations describing nutrients (N), phytoplankton (P), zooplankton (Z), and detritus (D) are then given by
+% nutrients
+\begin{equation}
+    \label{eq:Ndynamics}
+    \mathrm{\frac{dN}{dt} = -\mu_P(N,I)P+\delta_D D+K(N_0-N)}
+\end{equation}
+% phytoplankton
+\begin{equation}
+    \label{eq:Pdynamics}
+    \mathrm{\frac{dP}{dt} = \left[ \mu_P(N,I)+\delta_I-m_P-\mu_ZG(\bar{L},P)Z-v(\bar{L},M)-K \right] P}
+\end{equation}
+% zooplankton
+\begin{equation}
+    \label{eq:Zdynamics}
+    \mathrm{\frac{dZ}{dt} = \delta_Z\mu_Z G(\bar{L},P)PZ-m_Z Z^2 - \frac{h(t)}{M(t)}Z}
+\end{equation}
+%detritus
+\begin{equation}
+    \label{eq:Ddynamics}
+    \mathrm{\frac{dD}{dt} = (1-\delta_Z)\mu_Z G(\bar{L},P)PZ+m_P+m_Z Z^2-\delta_D D-KD}
+\end{equation}
+%
 \subsection{Parameters}
+A table showing all the parameters used in the model...
+
+\begin{table}[H]
+\centering
+\caption{CAPTION TEXT}
+\label{tab:param}
+\begin{tabular}{lcc}
+\hline
+\multicolumn{1}{c}{Parameter}               & Symbol (units)                    & Value     \\ \hline
+Pythoplankton biomass                       & $P (unit??)$                      & -         \\
+Zooplankton biomass                         & $Z (unit??)$                      & -         \\
+Detritus biomass                            & $D (unit??)$                      & -         \\
+Nutrients                                   & $N (unit??)$                      & -         \\
+Light intensity                             & $I (unit??)$                      & -         \\
+Mean cell size                              & $L (\mu m)$                       & -         \\
+P immigration rate                          & $\delta_I (d^{-1})$               & 0.008     \\
+P mortality rate                            & $m_p (d^{-1})$                    & 0.05      \\
+P max growth rate                           & $\mu_{Pmax} (??)$                 & ???       \\
+Z growth rate                               & $\mu_Z (d^{-1})$                  & 1.1       \\
+Z mortality rate                            & $m_Z (d^{-1})$                    & 0.3       \\
+P assimilation coefficient                  & $\delta_Z (-)$                    & 0.3       \\
+Half saturation of light limited growth     & $H_I (??)$                        & ??        \\
+Pythoplankton light absorption coefficient  & $k_P (m^2/cell??)$                & ??        \\
+Background turbidity                        & $K_{bg} (m^{-1} ??)$              & ??        \\
+Intercept of the $K_N$ allometric function  & $\beta_U (-)$                     & 0.14257   \\
+Slope of the $K_N$ allometric function      & $\alpha_U (-)$                    & 0.81      \\
+Mineralization rate                         & $\delta_D (d^{-1})$               & 0.1       \\
+Intercept of the $v$ allometric function    & $\beta_v (-)$                     & 0.01989   \\
+\hline
+\end{tabular}
+\end{table}
