@@ -6,6 +6,7 @@ The model and its four state variables are illustrated in Figure \cref{fig:Model
 \caption{The model illustration is highlighting the gains and losses for each of the state variables. Processes described in boxes marked by red is dependent on the mean cell size L.}
 \label{fig:ModelIllust}
 \end{figure}
+Phytoplankton is either grazed upon by zooplankton or turned into detritus when dying. Similarly, zooplankton are turned into detritus, which sink while being remineralized into dissolved inorganic nutrients. The cycle is then closed as the phytoplankton take up nutrients and light, which is converted into growth. 
 % briefly explain the processes
 % mention which parameters that are affected by size
 \newpage
@@ -129,22 +130,23 @@ A table showing all the parameters used in the model...
 \label{tab:param}
 \begin{tabular}{lcc}
 \hline
-\multicolumn{1}{c}{Parameter}               & Symbol (units)                    & Value     \\ \hline
-Pythoplankton biomass                       & $P (unit??)$                      & -         \\
-Zooplankton biomass                         & $Z (unit??)$                      & -         \\
-Detritus biomass                            & $D (unit??)$                      & -         \\
-Nutrients                                   & $N (unit??)$                      & -         \\
-Light intensity                             & $I (unit??)$                      & -         \\
-Mean cell size                              & $L (\mu m)$                       & -         \\
-P immigration rate                          & $\delta_I (d^{-1})$               & 0.008     \\
-P mortality rate                            & $m_p (d^{-1})$                    & 0.05      \\
-P max growth rate                           & $\mu_{Pmax} (??)$                 & ???       \\
+\multicolumn{1}{l}{Parameter}               & Symbol (units)                    & Value     \\ \hline
+Nutrients                                   & $\mathrm{N \ [mmol N m^{-3}]}$                       & -         \\
+Pythoplankton biomass                       & $\mathrm{P \ [mmol N m^{-3}]}$                     & -         \\
+Zooplankton biomass                         & $\mathrm{Z \ [mmol N m^{-3}]}$                      & -         \\
+Detritus biomass                            & $\mathrm{D \ [mmol N m^{-3}]}$                       & -         \\
+Mean cell size                              & $\mathrm{\bar{L}}$ \si{[\mu m]}                     & -         \\
+Photosynthetically active radiation                             & PAR \si{[Ein m^{-2} d^{-1}]}                   & 40         \\
+
+P immigration rate                          & $\mathrm{\delta_I}$ \si{[d^{-1}]}               & 0.008     \\
+P mortality rate                            & $\mathrm{m_p}$ \si{[d^{-1}]}                 & 0.05      \\
+P max growth rate                           & $\mu_{Pmax} (??)$                 & 1.4       \\
 Z growth rate                               & $\mu_Z (d^{-1})$                  & 1.1       \\
 Z mortality rate                            & $m_Z (d^{-1})$                    & 0.3       \\
 P assimilation coefficient                  & $\delta_Z (-)$                    & 0.3       \\
 Half saturation of light limited growth     & $H_I (??)$                        & ??        \\
-Pythoplankton light absorption coefficient  & $k_P (m^2/cell??)$                & ??        \\
-Background turbidity                        & $K_{bg} (m^{-1} ??)$              & ??        \\
+%Pythoplankton light absorption coefficient  & $k_P [m^2/cell??]$                & ??        \\
+%Background turbidity                        & $K_{bg} (m^{-1} ??)$              & ??        \\
 Intercept of the $K_N$ allometric function  & $\beta_U (-)$                     & 0.14257   \\
 Slope of the $K_N$ allometric function      & $\alpha_U (-)$                    & 0.81      \\
 Mineralization rate                         & $\delta_D (d^{-1})$               & 0.1       \\
@@ -154,6 +156,44 @@ Cross thermocline mixing                    & $\kappa (???)$                    
 Mixing of P                                 & $K (???)$                         & ??        \\
 Slope for allometric grazer preference      & $\alpha_G (-)$                    & -0.75     \\
 Slope of the $v$ allometric function        & $\alpha_v (-)$                    & 1.17      \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Parameters and variables used for the model simulations.}
+\label{tab:paramvariables}
+\begin{tabular}{
+>{\columncolor[HTML]{EFEFEF}}l 
+>{\columncolor[HTML]{EFEFEF}}l 
+>{\columncolor[HTML]{EFEFEF}}l 
+>{\columncolor[HTML]{EFEFEF}}l }
+\hline
+Symbol & Meaning                                             & Value & Units             \\ \hline
+\multicolumn{4}{l}{\cellcolor[HTML]{EFEFEF}\textit{Independent variables}}               \\
+t      & Time                                                &       & d                 \\
+$\bar{L}$      & Mean phytoplankton cell size                                                &       & \si{\mu m}                 \\
+\multicolumn{4}{l}{\cellcolor[HTML]{EFEFEF}\textit{Dependent variables}}  \\ 
+
+N      & Nutrients          &  -    &  mmol N \si{m^{-3}}  \\
+P                    & Pythoplankton biomass                        & -      &  mmol N \si{m^{-3}}  \\
+Z                        & Zooplankton biomass                       & -      &  mmol N \si{m^{-3}} \\
+D                            & Detritus biomass                       & -     &  mmol N \si{m^{-3}}  \\
+\multicolumn{4}{l}{\cellcolor[HTML]{EFEFEF}\textit{Parameters}}                          %\\ $I_{in}$    & Incident light intensity                            & 300    & \si{\mu mol} photons \si{m^{-2}} \si{s^{-1}} 
+%\\ $K_{bg}$    & Background turbidity of water                       & 0.045 & \si{m^{-1}}  
+\\ M & Mixed layer depth (MLD)  & 20     &  m  \\ $\mathrm{N_0}$ & Nutrient concentration below the MLD  & XX     &  mmol N \si{m^{-3}} \\
+$\mathrm{\Psi}$ & Photosynthetically active radiation                    & 40     &  \si{Ein} \si{m^{-2}} \si{d^{-1}}  \\ T & Temperature  & 25     &  \degree C  \\ $\mathrm{\kappa}$                    &
+Cross thermocline mixing                    &  0.01   &  m \si{d^{-1}}   \\ $\mathrm{K_P}$ & P half saturation  & 0.1     &  mmol N \si{m^{-3}} \si{\mu m^{-1}} \\ $\mathrm{\delta_I}$ &  P immigration rate      & 0.008   &   \si{d^{-1}} \\
+$\mathrm{m_p}$   & P mortality rate                & 0.05   & \si{d^{-1}}  \\
+$\mathrm{\mu_{Pmax}}$        &        P max growth rate           & 1.4    & \si{d^{-1}}  \\
+$\mathrm{\mu_Z}$  & Z growth rate                   & 1.1     & \si{d^{-1}} \\ $\mathrm{m_Z}$                    &
+Z mortality rate     &  0.3   &  \si{d^{-1}}  \\  $\mathrm{\delta_D}$               & Mineralization rate                         &  0.1  &  \si{d^{-1}}   \\ $\mathrm{\delta_Z}$  
+ & P assimilation coefficient                  & 0.3   &  -  \\
+ $\mathrm{\beta_U}$  &  Intercept of the $K_N$ allometric function       & 0.14257  &  \\  $\mathrm{\alpha_U}$                    &
+Slope of the $\mathrm{K_N}$ allometric function      &  0.81   &   \\ $\mathrm{\beta_v}$        & Intercept of the $\mathrm{v}$ allometric function    &  0.01989 &  \\ $\mathrm{\alpha_G}$                    & 
+Slope for allometric grazer preference      &  -0.75   &  \\ $\mathrm{\alpha_v}$                    &
+Slope of the $v$ allometric function        &  1.17   &   \\
 \hline
 \end{tabular}
 \end{table}
