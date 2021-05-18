@@ -1,1 +1,73 @@
 \section{Appendix}
+
+
+\subsection{Things that can be deleted in the end}
+\begin{table}[H]
+\centering
+\caption{CAPTION TEXT}
+\label{tab:param}
+\begin{tabular}{lcc}
+\hline
+\multicolumn{1}{l}{Parameter}               & Symbol (units)                    & Value     \\ \hline
+Nutrients                                   & $\mathrm{N \ [mmol N m^{-3}]}$                       & -         \\
+Pythoplankton biomass                       & $\mathrm{P \ [mmol N m^{-3}]}$                     & -         \\
+Zooplankton biomass                         & $\mathrm{Z \ [mmol N m^{-3}]}$                      & -         \\
+Detritus biomass                            & $\mathrm{D \ [mmol N m^{-3}]}$                       & -         \\
+Mean cell size                              & $\mathrm{\bar{L}}$ \si{[\mu m]}                     & -         \\
+Photosynthetically active radiation                             & PAR \si{[Ein m^{-2} d^{-1}]}                   & 40         \\
+
+P immigration rate                          & $\mathrm{\delta_I}$ \si{[d^{-1}]}               & 0.008     \\
+P mortality rate                            & $\mathrm{m_p}$ \si{[d^{-1}]}                 & 0.05      \\
+P max growth rate                           & $\mu_{Pmax} (??)$                 & 1.4       \\
+Z growth rate                               & $\mu_Z (d^{-1})$                  & 1.1       \\
+Z mortality rate                            & $m_Z (d^{-1})$                    & 0.3       \\
+P assimilation coefficient                  & $\delta_Z (-)$                    & 0.3       \\
+Half saturation of light limited growth     & $H_I (??)$                        & ??        \\
+%Pythoplankton light absorption coefficient  & $k_P [m^2/cell??]$                & ??        \\
+%Background turbidity                        & $K_{bg} (m^{-1} ??)$              & ??        \\
+Intercept of the $K_N$ allometric function  & $\beta_U (-)$                     & 0.14257   \\
+Slope of the $K_N$ allometric function      & $\alpha_U (-)$                    & 0.81      \\
+Mineralization rate                         & $\delta_D (d^{-1})$               & 0.1       \\
+Intercept of the $v$ allometric function    & $\beta_v (-)$                     & 0.01989   \\
+Incoming irradiance at surface              & $I_{in} (???)$                    & ??        \\
+Cross thermocline mixing                    & $\kappa (???)$                    & ??        \\
+Mixing of P                                 & $K (???)$                         & ??        \\
+Slope for allometric grazer preference      & $\alpha_G (-)$                    & -0.75     \\
+Slope of the $v$ allometric function        & $\alpha_v (-)$                    & 1.17      \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{equation}
+    \label{eq:Ndynamicsrand}
+    \mathrm{\frac{dN}{dt} = -\mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(\bar{L},N)\bigg)P+\delta_D D+K(N_0-N)}
+\end{equation}
+% phytoplankton
+\begin{equation}
+    \label{eq:Pdynamicsrand}
+    \mathrm{\frac{dP}{dt} = \left[ \mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(\bar{L},N)\bigg)+\delta_I-m_P-\mu_ZG(\bar{L},P)Z-v(\bar{L},M)-K \right] P}
+\end{equation}
+% zooplankton
+\begin{equation}
+    \label{eq:Zdynamicsrand}
+    \mathrm{\frac{dZ}{dt} = \delta_Z\mu_Z G(\bar{L},P)PZ-m_Z Z^2 - \frac{h(t)}{M(t)}Z}
+\end{equation}
+%detritus
+\begin{equation}
+    \label{eq:Ddynamicsrand}
+    \mathrm{\frac{dD}{dt} = (1-\delta_Z)\mu_Z G(\bar{L},P)PZ+m_P+m_Z Z^2-\delta_D D-KD}
+\end{equation}
+
+\begin{equation}
+    \label{eq:nutrientuptakerand}
+    \mathrm{U(L,N) = \frac{N}{(\beta_U\cdot e^{L\alpha_U})+N}},
+\end{equation}
+
+
+
+The growth rate of phytoplankton $\mathrm{\mu_P(N,I)}$ is limited by two factors, which are the light and the available nutrients. The least abundant is controlling the growth, which is in accordance with Liebig's law of the minimum:
+\begin{equation}
+    \label{eq:growthrate}
+    \mathrm{\mu_P(N,I) = \mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(\bar{L},N)\bigg)},
+\end{equation}
+where $\mathrm{\mu_{Pmax}}$ is maximum specific growth rate of P, I is the light intensity and $\mathrm{H_{I}}$ is the half saturation constants of light limited growth

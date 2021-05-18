@@ -1,4 +1,8 @@
-\section{Description}
+\section{Methods}
+% briefly explain the processes
+% mention which parameters that are affected by size
+%
+\subsection{Model description}
 The model and its four state variables are illustrated in Figure \cref{fig:ModelIllust}. For each state variables, the given biological and physical processes has been divided into gains or losses.  
 \begin{figure}[H]
 \centering
@@ -7,35 +11,34 @@ The model and its four state variables are illustrated in Figure \cref{fig:Model
 \label{fig:ModelIllust}
 \end{figure}
 Phytoplankton is either grazed upon by zooplankton or turned into detritus when dying. Similarly, zooplankton are turned into detritus, which sink while being remineralized into dissolved inorganic nutrients. The cycle is then closed as the phytoplankton take up nutrients and light, which is converted into growth. 
-% briefly explain the processes
-% mention which parameters that are affected by size
-\newpage
-%
-\subsection{Model}
+\newline
+\newline
 In our trait-based model, the cell size of phytoplankton is the mean trait described with a log-normal size distribution: $\mathrm{L=log(S)}$. S is the Equivalent Spherical Diameter (ESD) given in \si{\mu m}. The change in mean cell size over time is described by the following equation
 \begin{equation}
     \label{eq:changecellsize}
     \mathrm{\frac{d\bar{L}}{dt} = V\frac{\partial r(\bar{L})}{\partial L}},
 \end{equation}
-where r is the net growth rate of phytoplankton, which is given in Equation \eqref{eq:netgrowthrateP}. V is the variance of the log size diversity of the phytoplankton community and is given by
-\begin{equation}
-    \label{eq:variance}
-    \mathrm{\frac{dV}{dt} = -V^{2}\frac{\partial^{2} r(\bar{L})}{\partial^{2} L}+\delta_I(V_0-V)},
-\end{equation}
-where $\mathrm{V_0}$ is the size variance as a result of the immigration rate $\mathrm{\delta_I}$ into the community.
+where r is the net growth rate of phytoplankton, which is given in Equation \eqref{eq:netgrowthrateP}. V is the variance of the log size diversity of the phytoplankton community, which represents a way of measuring functional diversity. In contrast to \cite{AcevedoTrejos2015} who modelled the variance as $\mathrm{\frac{dV}{dt}=-V^2\frac{\partial^2 r(\bar{L}) }{\partial^2 L}+\delta_I(V_0-V)}$, we defined the variance as a constant of 0.16 \si{[Log\mu m \ ESD]^2}, to make to simplify the model. This value was chosen based on the mean size variance for tropical regions found by \cite{AcevedoTrejos2015}, which showed very small fluctuations for these systems.
+%KEN: Jeg har lavet en skitse der viser fordelingerne af størrelserne. I virkeligheden er der jo en fordeling af cellestørrelser, p(L), som har en spredning, sigma. Variancen er proportional med sigma^2. I artiklen modellerer de både hvordan variancen og middelværdien ændrer sig. Vi må lave en antagelse omkring variancen.
+%Det ville være logisk at beskrive V med en “coefficient of variation”, dvs antage at V er proportional til L^2 (V har jo enheden L^2). På den måde bliver V mindre når L bliver mindre, og så bliver dL/dt også mindr
 \newline
 \newline
-M(t) is a forcing function describing how the mixed layer depth (MLD) changes with seasons. The actual change $\mathrm{h(t)}$ in the MLD per day is defined as,
-\begin{equation}
-    \label{eq:h(t)}
-    \mathrm{h(t) = \frac{dM(t)}{dt}}
-\end{equation}
+M(t) is a forcing function describing how the mixed layer depth (MLD) changes with seasons. As the MLD is relatively constant in the tropical region modelled by \cite{AcevedoTrejos2015}, we decided to set it equal to XXX m instead. This implies that the change of the mixed layer depth, h(t), is assumed to be zero over an entire year, independently of seasonality. Hence, our model does not take into account any effects of entrainment and detrainment, as they do in \cite{AcevedoTrejos2015}.
+\newline
+\newline
+%Entrainment and detrainment are taken into account in the term $\mathrm{h^{+} = max[h(t),0]}$. 
 The diffusive mixing K is then given by the following equation:
 \begin{equation}
     \label{eq:K}
-    \mathrm{K = \frac{\kappa+h^{+}}{M(t)}},
+    \mathrm{K = \frac{\kappa}{M}},
 \end{equation}
-where $\kappa$ is the cross-thermocline mixing. Entrainment and detrainment are taken into account in the term $\mathrm{h^{+} = max[h(t),0]}$.
+where $\kappa$ is the cross-thermocline mixing. 
+%The actual change $\mathrm{h(t)}$ in the MLD per day is defined as,
+%\begin{equation}
+ %   \label{eq:h(t)}
+  %  \mathrm{h(t) = \frac{dM(t)}{dt}}
+%\end{equation}
+
 
 \subsection{System of equations}
 The changes in the total biomass of the phytoplankton (P) community over time is given as a function of cell size:
@@ -46,35 +49,33 @@ The changes in the total biomass of the phytoplankton (P) community over time is
 The net growth rate of P, $\mathrm{r(\bar{L}})$, can be written as
 \begin{equation}
     \label{eq:netgrowthrateP}
-    \mathrm{r(\bar{L})=\mu_P(N,I)+\delta_I-m_P-\mu_ZG(\bar{L},P)Z-v(\bar{L},M)-K},
+    \mathrm{r(\bar{L})=\mu_{Pmax}f(T)\Psi(I)U(\bar{L},N)+\delta_I-m_P-\mu_ZG(\bar{L},P)Z-v(\bar{L},M)-K},
 \end{equation}
-where $\mathrm{\delta_I}$ is the rate of dispersal of phytoplankton from patches nearby into the community of interest, K is the mixing, $\mathrm{G(L,P)}$ is the zooplankton grazing, $v(L,M)$ is the phytoplankton sinking and $\mathrm{m_P}$ represents any other losses of P.
+where $\mathrm{\delta_I}$ is the rate of dispersal of phytoplankton from patches nearby into the community of interest, K is the mixing, $\mathrm{G(L,P)}$ is the zooplankton grazing, $\mathrm{v(L,M)}$ is the phytoplankton sinking and $\mathrm{m_P}$ represents any other losses of P. \textit{Explain the terms in the first part of equation. Mention that PAR = constant.}
 \newline
 \newline
-\textbf{Phytoplankton growth rate and nutrient uptake}
+\textbf{Nutrient uptake of phytoplankton}
 \newline
-The growth rate of phytoplankton $\mathrm{\mu_P(N,I)}$ is limited by two factors, which are the light and the available nutrients. The least abundant is controlling the growth, which is in accordance with Liebig's law of the minimum:
-\begin{equation}
-    \label{eq:growthrate}
-    \mathrm{\mu_P(N,I) = \mu_{Pmax}min\bigg(\frac{I}{H_I+I},U(\bar{L},N)\bigg)},
-\end{equation}
-where $\mathrm{\mu_{Pmax}}$ is maximum specific growth rate of P, I is the light intensity and $\mathrm{H_{I}}$ is the half saturation constants of light limited growth. U is the phytoplankton nutrient uptake as a function of nutrients N and the cell size of phytoplankton L, given by
+%The growth rate of phytoplankton $\mathrm{\mu_P(N,I)}$ is limited by two factors, which are the light and the available nutrients. The least abundant is controlling the growth, which is in accordance with Liebig's law of the minimum:
+%\begin{equation}
+  %  \label{eq:growthrate}
+   % \mathrm{\mu_P(N,I) = %\mu_{Pmax}f(T)\Psi(I)U(\bar{L},N)},
+%\end{equation}
+%where $\mathrm{\mu_{Pmax}}$ is maximum specific growth rate of P, I is the light intensity and $\mathrm{H_{I}}$ is the half saturation constants of light limited growth. 
+U is the phytoplankton nutrient uptake as a function of nutrients N and the cell size of phytoplankton L, given by
 \begin{equation}
     \label{eq:nutrientuptake}
     \mathrm{U(L,N) = \frac{N}{H_N+N}=\frac{N}{(\beta_U\cdot e^{L\alpha_U})+N}},
 \end{equation}
-where $\mathrm{\beta_U}$ is the intercept of the allometric function $H_N$ (the half-saturation for nutrients) and $\mathrm{\alpha_U}$ is the slope of $\mathrm{H_N}$.
+where $\mathrm{\beta_U}$ is the intercept of the allometric function $\mathrm{H_N}$ (the half-saturation for nutrients) and $\mathrm{\alpha_U}$ is the slope of $\mathrm{H_N}$.
 % we need to discuss the consequence of this somewhere
-\newline
-\newline
-\textbf{Light intensity}
-\newline
-The light intensity is given in accordance with Lambert–Beer’s law, which means that it is decreasing exponentially with depth as a result of light being absorbed by biomass, water and other substances:
-\begin{equation}
-    \label{eq:light}
-    \mathrm{I(z,t) = I_{in}exp \bigg( - \int_{0}^{z} k_{p}P(\sigma,t) \,d \sigma - K_{bg}z \bigg)},
-\end{equation}
-where $\mathrm{I_{in}}$ is the incident light intensity, $\mathrm{k_p}$ is the phytoplankton light absorption coefficient, $\mathrm{K_{bg}}$ is the background turbidity of the water and $\mathrm{\sigma}$ is an integration variable. 
+%\newline
+%The light intensity is given in accordance with Lambert–Beer’s law, which means that it is decreasing exponentially with depth as a result of light being absorbed by biomass, water and other substances:
+%\begin{equation}
+ %   \label{eq:light}
+ %   \mathrm{I(z,t) = I_{in}exp \bigg( - \int_{0}^{z} k_{p}P(\sigma,t) \,d \sigma - K_{bg}z \bigg)},
+%\end{equation}
+%where $\mathrm{I_{in}}$ is the incident light intensity, $\mathrm{k_p}$ is the phytoplankton light absorption coefficient, $\mathrm{K_{bg}}$ is the background turbidity of the water and $\mathrm{\sigma}$ is an integration variable. 
 \newline
 \newline
 \textbf{Phytoplankton sinking}
@@ -126,42 +127,6 @@ A table showing all the parameters used in the model...
 
 \begin{table}[H]
 \centering
-\caption{CAPTION TEXT}
-\label{tab:param}
-\begin{tabular}{lcc}
-\hline
-\multicolumn{1}{l}{Parameter}               & Symbol (units)                    & Value     \\ \hline
-Nutrients                                   & $\mathrm{N \ [mmol N m^{-3}]}$                       & -         \\
-Pythoplankton biomass                       & $\mathrm{P \ [mmol N m^{-3}]}$                     & -         \\
-Zooplankton biomass                         & $\mathrm{Z \ [mmol N m^{-3}]}$                      & -         \\
-Detritus biomass                            & $\mathrm{D \ [mmol N m^{-3}]}$                       & -         \\
-Mean cell size                              & $\mathrm{\bar{L}}$ \si{[\mu m]}                     & -         \\
-Photosynthetically active radiation                             & PAR \si{[Ein m^{-2} d^{-1}]}                   & 40         \\
-
-P immigration rate                          & $\mathrm{\delta_I}$ \si{[d^{-1}]}               & 0.008     \\
-P mortality rate                            & $\mathrm{m_p}$ \si{[d^{-1}]}                 & 0.05      \\
-P max growth rate                           & $\mu_{Pmax} (??)$                 & 1.4       \\
-Z growth rate                               & $\mu_Z (d^{-1})$                  & 1.1       \\
-Z mortality rate                            & $m_Z (d^{-1})$                    & 0.3       \\
-P assimilation coefficient                  & $\delta_Z (-)$                    & 0.3       \\
-Half saturation of light limited growth     & $H_I (??)$                        & ??        \\
-%Pythoplankton light absorption coefficient  & $k_P [m^2/cell??]$                & ??        \\
-%Background turbidity                        & $K_{bg} (m^{-1} ??)$              & ??        \\
-Intercept of the $K_N$ allometric function  & $\beta_U (-)$                     & 0.14257   \\
-Slope of the $K_N$ allometric function      & $\alpha_U (-)$                    & 0.81      \\
-Mineralization rate                         & $\delta_D (d^{-1})$               & 0.1       \\
-Intercept of the $v$ allometric function    & $\beta_v (-)$                     & 0.01989   \\
-Incoming irradiance at surface              & $I_{in} (???)$                    & ??        \\
-Cross thermocline mixing                    & $\kappa (???)$                    & ??        \\
-Mixing of P                                 & $K (???)$                         & ??        \\
-Slope for allometric grazer preference      & $\alpha_G (-)$                    & -0.75     \\
-Slope of the $v$ allometric function        & $\alpha_v (-)$                    & 1.17      \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{table}[H]
-\centering
 \caption{Parameters and variables used for the model simulations.}
 \label{tab:paramvariables}
 \begin{tabular}{
@@ -182,7 +147,7 @@ Z                        & Zooplankton biomass                       & -      & 
 D                            & Detritus biomass                       & -     &  mmol N \si{m^{-3}}  \\
 \multicolumn{4}{l}{\cellcolor[HTML]{EFEFEF}\textit{Parameters}}                          %\\ $I_{in}$    & Incident light intensity                            & 300    & \si{\mu mol} photons \si{m^{-2}} \si{s^{-1}} 
 %\\ $K_{bg}$    & Background turbidity of water                       & 0.045 & \si{m^{-1}}  
-\\ M & Mixed layer depth (MLD)  & 20     &  m  \\ $\mathrm{N_0}$ & Nutrient concentration below the MLD  & XX     &  mmol N \si{m^{-3}} \\
+\\ M & Mixed layer depth (MLD)  & 10-100     &  m  \\ $\mathrm{N_0}$ & Nutrient concentration below the MLD  & 2-50     &  mmol N \si{m^{-3}} \\
 $\mathrm{\Psi}$ & Photosynthetically active radiation                    & 40     &  \si{Ein} \si{m^{-2}} \si{d^{-1}}  \\ T & Temperature  & 25     &  \degree C  \\ $\mathrm{\kappa}$                    &
 Cross thermocline mixing                    &  0.01   &  m \si{d^{-1}}   \\ $\mathrm{K_P}$ & P half saturation  & 0.1     &  mmol N \si{m^{-3}} \si{\mu m^{-1}} \\ $\mathrm{\delta_I}$ &  P immigration rate      & 0.008   &   \si{d^{-1}} \\
 $\mathrm{m_p}$   & P mortality rate                & 0.05   & \si{d^{-1}}  \\
